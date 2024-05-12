@@ -9,10 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-<<<<<<< Updated upstream
     "framer-motion": "^11.1.9",
-=======
->>>>>>> Stashed changes
     "i": "^0.3.7",
     "mongoose": "^8.3.4",
     "next": "14.2.3",
