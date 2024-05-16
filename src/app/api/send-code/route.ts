@@ -7,10 +7,11 @@ function generateRandomCode() {
 
 export async function POST(req: NextRequest) {
   if (req.method === "POST") {
+    const { email } = await req.json();
     const code = generateRandomCode();
     try {
       await sendMail({
-        to: "tymbeixpoi@gmail.com",
+        to: `${email}`,
         subject: "Kod weryfikacyjny",
         body: `Kod weryfikacyjny: ${code}`,
       });

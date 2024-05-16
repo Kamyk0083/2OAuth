@@ -2,6 +2,7 @@
 
 import { useState, ChangeEvent } from "react";
 import axios from "axios";
+import jwt from "jsonwebtoken";
 
 export default function Home() {
   const [username, setUsername] = useState("");
@@ -28,6 +29,8 @@ export default function Home() {
 
       if (data.success && data.token) {
         localStorage.setItem("token", data.token);
+        const decoded = jwt.decode(data.token) as { email: string };
+        localStorage.setItem("email", decoded.email);
         window.location.href = "/code";
       } else {
         console.log("Niepoprawna nazwa użytkownika lub hasło");
