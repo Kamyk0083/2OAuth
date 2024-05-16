@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 import User from "../../../../User";
 import connect from "../../../../db";
 
-export async function POST(request: NextRequest, response: NextResponse) {
+export async function POST(request: NextRequest) {
   await connect();
   const { username, password } = await request.json();
   console.log("Dane logowania:", username, password);
