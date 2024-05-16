@@ -70,13 +70,19 @@ export default function Home() {
               placeholder="hasło..."
             />
           </div>
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between flex-col gap-3">
             <button
               onClick={Loginin}
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
               type="button"
             >
               Zaloguj się
+            </button>
+            <button
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              type="button"
+            >
+              zarejestruj się
             </button>
           </div>
         </form>
