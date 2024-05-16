@@ -1,21 +1,36 @@
-import type { NextApiRequest, NextApiResponse } from 'next';
-import { sendMail } from '@/lib/mail';
+import { NextRequest, NextResponse } from "next/server";
+import { sendMail } from "@/lib/mail";
 
-export async function handler(req: NextApiRequest, res: NextApiResponse) {
-  if (req.method === 'POST') {
-    const { code } = req.body;
+function generateRandomCode() {
+  return Math.floor(100000 + Math.random() * 900000).toString();
+}
+
+export async function POST(req: NextRequest) {
+  if (req.method === "POST") {
+    const code = generateRandomCode();
     try {
       await sendMail({
         to: "tymbeixpoi@gmail.com",
-        name: "Vahid",
-        subject: "Test Mail",
-        body: `Witaj, oto Twój kod weryfikacyjny: ${code}`,
+        subject: "Kod weryfikacyjny",
+        body: `Kod weryfikacyjny: ${code}`,
       });
-      res.status(200).json({ message: 'Email sent successfully' });
+      return NextResponse.json({ success: true, code });
     } catch (error) {
-      res.status(500).json({ message: 'Failed to send email' });
+      return NextResponse.json(
+        {
+          success: false,
+          message: "Błąd podczas wysyłania kodu",
+        },
+        { status: 500 }
+      );
     }
   } else {
-    res.status(405).json({ message: 'Method Not Allowed' });
+    return NextResponse.json(
+      {
+        success: false,
+        message: "Niepoprawny typ zapytania",
+      },
+      { status: 405 }
+    );
   }
 }
