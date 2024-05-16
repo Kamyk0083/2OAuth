@@ -2,7 +2,6 @@
 
 import { useState, ChangeEvent } from "react";
 import axios from "axios";
-import connect from "../../../db";
 
 export default function Home() {
   const [username, setUsername] = useState("");
