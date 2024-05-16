@@ -29,7 +29,7 @@ export default function Home() {
 
       if (data.success && data.token) {
         localStorage.setItem("token", data.token);
-        window.location.href = "/";
+        window.location.href = "/code";
       } else {
         console.log("Niepoprawna nazwa użytkownika lub hasło");
       }
