@@ -1,16 +1,19 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export default function MainPage() {
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     const token = localStorage.getItem("token");
-    if (!token) {
+    const email = localStorage.getItem("email");
+
+    if (!token || !email) {
       window.location.href = "/login";
       return;
     }
 
-    const email = localStorage.getItem("email");
     fetch("/api/check-verification", {
       method: "POST",
       headers: {
@@ -22,9 +25,23 @@ export default function MainPage() {
       .then((data) => {
         if (!data.verification) {
           window.location.href = "/code";
+        } else {
+          setLoading(false);
         }
       });
   }, []);
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center h-screen bg-gray-100">
+        <div className="text-center">
+          <div className="loader ease-linear rounded-full border-8 border-t-8 border-gray-200 h-32 w-32 mb-4"></div>
+          <h2 className="text-2xl font-semibold text-gray-700">Ładowanie...</h2>
+          <p className="text-gray-500">Proszę czekać</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <pre
