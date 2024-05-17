@@ -15,6 +15,11 @@ const userSchema = mongoose.Schema({
     require: true,
     unique: true,
   },
+  verification: {
+    type: Boolean,
+    default: false,
+    require: true,
+  },
 });
 
 export default mongoose.models.User || mongoose.model("User", userSchema);

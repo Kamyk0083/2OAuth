@@ -7,13 +7,16 @@ import jwt from "jsonwebtoken";
 export default function Home() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
   const handleLoginChange = (e: ChangeEvent<HTMLInputElement>) => {
     setUsername(e.target.value);
+    setError("");
   };
 
   const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
+    setError("");
   };
 
   const Loginin = async () => {
@@ -24,17 +27,23 @@ export default function Home() {
           "Content-Type": "application/json",
         },
       };
-      const response = await axios.post("/api/login", credentials, config);
-      const data = response.data;
+      try {
+        const response = await axios.post("/api/login", credentials, config);
+        const data = response.data;
 
-      if (data.success && data.token) {
-        localStorage.setItem("token", data.token);
-        const decoded = jwt.decode(data.token) as { email: string };
-        localStorage.setItem("email", decoded.email);
-        window.location.href = "/code";
-      } else {
-        console.log("Niepoprawna nazwa użytkownika lub hasło");
+        if (data.success && data.token) {
+          localStorage.setItem("token", data.token);
+          const decoded = jwt.decode(data.token) as { email: string };
+          localStorage.setItem("email", decoded.email);
+          window.location.href = "/code";
+        } else {
+          setError(data.message || "Niepoprawna nazwa użytkownika lub hasło");
+        }
+      } catch (error) {
+        setError("Problem z połączeniem z serwerem");
       }
+    } else {
+      setError("Proszę wprowadzić nazwę użytkownika i hasło");
     }
   };
 
@@ -82,6 +91,7 @@ export default function Home() {
               Zaloguj się
             </button>
           </div>
+          {error && <p className="text-red-500 text-center mt-4">{error}</p>}
         </form>
       </div>
     </div>

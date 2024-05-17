@@ -10,8 +10,18 @@ export async function POST(request: NextRequest) {
 
   try {
     const user = await User.findOne({ username: username });
+    if (!user) {
+      console.log("Użytkownik nie znaleziony:", username);
+      return new NextResponse(
+        JSON.stringify({
+          success: false,
+          message: "Użytkownik nie znaleziony",
+        }),
+        { status: 404 }
+      );
+    }
     console.log("Użytkownik znaleziony:", username);
-    if (username && user.password === password) {
+    if (user.password === password) {
       const token = jwt.sign(
         {
           username: user.username,
@@ -27,7 +37,8 @@ export async function POST(request: NextRequest) {
         JSON.stringify({
           success: false,
           message: "Nieprawidłowa nazwa użytkownika lub hasło",
-        })
+        }),
+        { status: 401 }
       );
     }
   } catch (error) {
