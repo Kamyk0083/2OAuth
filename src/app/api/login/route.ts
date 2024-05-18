@@ -7,12 +7,10 @@ export const revalidate = 1;
 export async function POST(request: NextRequest) {
   await connect();
   const { username, password } = await request.json();
-  console.log("Dane logowania:", username, password);
 
   try {
     const user = await User.findOne({ username: username });
     if (!user) {
-      console.log("Użytkownik nie znaleziony:", username);
       return new NextResponse(
         JSON.stringify({
           success: false,
@@ -21,7 +19,6 @@ export async function POST(request: NextRequest) {
         { status: 404 }
       );
     }
-    console.log("Użytkownik znaleziony:", username);
     if (user.password === password) {
       const token = jwt.sign(
         {
@@ -30,10 +27,8 @@ export async function POST(request: NextRequest) {
         },
         "secret"
       );
-      console.log("Token:", token);
       return new NextResponse(JSON.stringify({ success: true, token }));
     } else {
-      console.log("Niepoprawna nazwa użytkownika lub hasło");
       return new NextResponse(
         JSON.stringify({
           success: false,

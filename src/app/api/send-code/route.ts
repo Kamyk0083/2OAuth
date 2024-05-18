@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { sendMail } from "@/lib/mail";
 import VerificationCode from "../../../../Verification_code";
-import User from "../../../../User";
 
 function generateRandomCode() {
   return Math.floor(100000 + Math.random() * 900000).toString();

@@ -39,7 +39,6 @@ export default function Home() {
     } else {
       setIsButtonDisabled(false);
     }
-    console.log(data.message);
   };
 
   const handleVerifyCode = async () => {
@@ -53,7 +52,7 @@ export default function Home() {
     if (data.success) {
       window.location.href = "/main-page";
     } else {
-      console.log("Niepoprawny kod");
+      alert("Niepoprawny kod");
     }
   };
 
