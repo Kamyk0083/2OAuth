@@ -91,6 +91,15 @@ export default function Home() {
               Zaloguj się
             </button>
           </div>
+          <div className="flex items-center justify-between flex-col gap-3">
+            <a
+            href="/register"
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-5"
+              type="button"
+            >
+              Zarejestruj się
+            </a>
+          </div>
           {error && <p className="text-red-500 text-center mt-4">{error}</p>}
         </form>
       </div>
