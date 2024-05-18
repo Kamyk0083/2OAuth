@@ -5,6 +5,7 @@ function generateRandomCode() {
   return Math.floor(100000 + Math.random() * 900000).toString();
 }
 
+export const revalidate = 1;
 export async function POST(req: NextRequest) {
   if (req.method === "POST") {
     const { email } = await req.json();

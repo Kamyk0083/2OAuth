@@ -3,6 +3,7 @@ import jwt from "jsonwebtoken";
 import User from "../../../../User";
 import connect from "../../../../db";
 
+export const revalidate = 1;
 export async function POST(request: NextRequest) {
   await connect();
   const { username, password } = await request.json();
