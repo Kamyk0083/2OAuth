@@ -38,7 +38,6 @@ export async function POST(request: NextRequest) {
       );
     }
   } catch (error) {
-    console.error("Błąd logowania:", error);
     return new NextResponse(
       JSON.stringify({ success: false, message: "Błąd logowania" }),
       { status: 500 }

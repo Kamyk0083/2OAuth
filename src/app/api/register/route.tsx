@@ -13,13 +13,11 @@ export async function POST(request: Request) {
         { status: 400 }
       );
     }
-    const { username, email, password} =
-      JSON.parse(requestBody);
-    const user = new User({ username, email, password});
+    const { username, email, password } = JSON.parse(requestBody);
+    const user = new User({ username, email, password });
     await user.save();
     return NextResponse.json({ message: "User dodany!" });
   } catch (error) {
-    console.error("Error processing request", error);
     return NextResponse.json(
       { error: "Internal Server Error" },
       { status: 500 }
