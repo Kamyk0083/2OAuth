@@ -11,7 +11,7 @@ export async function POST(req: NextRequest) {
       { email },
       {
         verification: true,
-        verificationExpiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+        verificationExpiresAt: new Date(Date.now() + 60 * 1000),
       }
     );
     return NextResponse.json({ success: true });

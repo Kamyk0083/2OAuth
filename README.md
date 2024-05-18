@@ -1,36 +1,66 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+Dokumentacja uruchomieniowa
+postawiona aplikacja:
+1. trzeba odpalić stornę: https://2-o-auth.vercel.app
+2. klikamy start
+3. logujemy sie jak mamy konto
+4. jak nie mamy konta to się rejestrujemy i potem logujemy
+5. klikamy wyślij kod 
+6. wchodzimy na podanego w rejestracji maila i kopjujemy kod
+7. wklejamy kod do okienka w aplikacji
+8. klikamy sprawdź kod
 
-## Getting Started
+lokalnie:
+1. odpalamy terminal
+2. wpisujemy "npm install i"
+3. potem wpisujemy "npm run dev"
+4. klikamy z controlem na adres który się wyświetla w konsoli
 
-First, run the development server:
+Dokumentacja techniczna:
+Jest to system weryfikacji dwuetapowej zbudowany w Next.js. Aplikacja ta obejmuje funkcje logowania użytkownika, rejestracje użytkownika, wysyłanie kodów weryfikacyjnych emailer oraz weryfikacje tych kodów,
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Struktura Projektu
+- src/app/api: zawiera API które zawierają logikę logowania rejestracji, wysyłania kodów i weryfikacji kodu,
+- src/app: Zawiera główne strony aplikacji
+- src/lib: Zawiera funkcje pomocnicze np. Wysyłanie emaili
+- db.ts: Konfiguracja połączenia z bazą danych
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Endpointy API:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- Endpoint: /api/send-code
+- Metoda: POST
+- Body żądania: email: string
+- Odpowiedź: success: true/false, message?: string
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+- Endpoint: /api/verify-code
+- Metoda POST
+- Body żadania: email string, code string
+- odpowiedź: sucess: true/false, message?: string
 
-## Learn More
+- Endpoint: /api/login
+- Metoda: POST
+- Body żadania: username: string, password: string
+- Odpowiedź: success: string, token?: string, message?: string
 
-To learn more about Next.js, take a look at the following resources:
+Strony:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Stronga logowania
+- ścieżka: /login
+- obsługuje logowanie użytkownika i przekierowywuje do strony weryfikacji kodu
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+- Strona weryfikacji kody
+- ścieżka /code
+- Umożliwia użytkownikom wprowadzenie i weryfikację kodu wysłanego na ich adres email
 
-## Deploy on Vercel
+- Strona główna
+- ścieżka /main-page
+- Główna strona, treść strony dostępna tylko po pomyślnej weryfikacji
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Połączenie z bazdą danych
+- funkcja: connect
+- Łączy się z bazą danych za pomocą mongoose
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Zmienne środowiskowe:
+
+- SMTP_EMAIL Adress email używany do wysyłania emaili
+- SMTP_PASSWORD Hasło umożliwiające wysyłanie emaili
+
