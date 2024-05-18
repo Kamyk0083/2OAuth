@@ -16,6 +16,11 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    if (user.verification && new Date() > user.verificationExpiresAt) {
+      user.verification = false;
+      await user.save();
+    }
+
     return new NextResponse(
       JSON.stringify({ success: true, verification: user.verification })
     );
