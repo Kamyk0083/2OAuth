@@ -24,7 +24,7 @@ export default function Register() {
       });
       window.location.href = "/login";
     } catch (error) {
-      console.error(error);
+      alert("Niepoprawna nazwa użytkownika lub hasło");
     }
   };
 
