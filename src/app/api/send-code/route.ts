@@ -15,7 +15,7 @@ export async function POST(req: NextRequest) {
     await sendMail({
       to: `${email}`,
       subject: "Kod weryfikacyjny",
-      body: `Kod weryfikacyjny: ${code}`,
+      body: `Ten kod będzie ważny przez 10 minut: ${code}`,
     });
     await VerificationCode.findOneAndUpdate(
       { email },
