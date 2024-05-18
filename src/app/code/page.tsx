@@ -59,7 +59,7 @@ export default function Home() {
 
   return (
     <div className="bg-gray-100 h-screen flex flex-col items-center justify-center">
-      <h4 className="text-xl font-bold mb-8 text-center">Po kliknięciu wyślij dostaniesz kod na maila, który należy wpisać w okienko, a następnie nacisnąć sprawdź kod</h4>
+      <h4 className="text-xl font-bold mb-8 text-center m-8">Po kliknięciu wyślij dostaniesz kod na maila, który należy wpisać w okienko, a następnie nacisnąć sprawdź kod</h4>
       <input
         type="text"
         value={code}
