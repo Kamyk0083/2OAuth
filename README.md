@@ -8,6 +8,7 @@ postawiona aplikacja:
 6. wchodzimy na podanego w rejestracji maila i kopjujemy kod
 7. wklejamy kod do okienka w aplikacji
 8. klikamy sprawdź kod
+
 lokalnie:
 1. odpalamy terminal
 2. wpisujemy "npm install i"
