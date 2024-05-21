@@ -16,6 +16,15 @@ export default function Register() {
       return;
     }
 
+    const passwordRegex =
+      /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,}$/;
+    if (!passwordRegex.test(Password)) {
+      alert(
+        "Hasło musi mieć minimum 8 znaków, zawierać co najmniej jeden numer i jeden znak specjalny"
+      );
+      return;
+    }
+
     try {
       await axios.post("/api/register", {
         username: Name,
